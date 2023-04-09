@@ -5,9 +5,10 @@ ENV PATH="$VENV_PATH/bin:$PATH"
 
 WORKDIR /app
 
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get upgrade && apt-get install ffmpeg libsm6 libxext6  -y
 RUN pip install --upgrade poetry
 RUN python -m venv /venv
+
 
 COPY . .
 

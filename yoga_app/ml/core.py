@@ -12,9 +12,10 @@ class Stage(str,Enum):
     three = "three"
 
 def refactor_this_later(image_path):
+  
 
     suggestions = []
-    cap = cv2.VideoCapture("/content/drive/MyDrive/Colab Notebooks/vakrasana-1.png")
+    cap = cv2.VideoCapture(image_path)
 ## Setup mediapipe instance
     with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
     #while cap.isOpened():
@@ -113,22 +114,33 @@ def refactor_this_later(image_path):
   #       landmark_list=landmark_subset)
   #       imshow(annotated_image)
 
-def calculateAngle(a,b,c):
-      x1=a.x
-      x2=b.x
-      x3=c.x
-      y1=a.y
-      y2=b.y
-      y3=c.y
-      radians = np.arctan2(y3-y2, x3-x2) - np.arctan2(y1-y2, x1-x2)
-      angle = np.abs(radians*180.0/np.pi)
-        
-      if angle >180.0:
-          angle = 360-angle
-            
-            
-      return angle
-
+    def calculateAngle(a,b,c):
+            x1=a.x
+            x2=b.x
+            x3=c.x
+            y1=a.y
+            y2=b.y
+            y3=c.y
+            radians = np.arctan2(y3-y2, x3-x2) - np.arctan2(y1-y2, x1-x2)
+            angle = np.abs(radians*180.0/np.pi)
+              
+            if angle >180.0:
+                angle = 360-angle
+                  
+                  
+            return angle
+    def calculate_Angle(a,b,c):
+          a = np.array(a) # First
+          b = np.array(b) # Mid
+          c = np.array(c) # End
+          
+          radians = np.arctan2(c[1]-b[1], c[0]-b[0]) - np.arctan2(a[1]-b[1], a[0]-b[0])
+          angle = np.abs(radians*180.0/np.pi)
+          
+          if angle >180.0:
+              angle = 360-angle
+              
+              return angle
 
     left_elbow_angle = calculateAngle(landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value],
                                       landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value],
@@ -305,8 +317,8 @@ def calculateAngle(a,b,c):
             else:
               print("Please take a look at photo and get in right position")
               suggestions.append("Please take a look at photo and get in right position")
-                
-    return(suggestions)
+              return(suggestions)                
+
 
 
 

@@ -48,7 +48,7 @@ def refactor_this_later(image_path):
     fnum = frozenset(tup1)
     fnum
 
-    cap = cv2.VideoCapture('/content/drive/MyDrive/Colab Notebooks/vakrasana-3.png')
+    cap = cv2.VideoCapture(image_path)
 ## Setup mediapipe instance
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
     #while cap.isOpened():

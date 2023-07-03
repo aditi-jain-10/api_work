@@ -407,4 +407,4 @@ def refactor_this_later(image_path):
             suggestions.append("you are doing great")
 
 
-    #return suggestions
+    return suggestions
